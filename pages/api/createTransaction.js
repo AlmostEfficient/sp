@@ -3,17 +3,13 @@ import { WalletAdapterNetwork } from "@solana/wallet-adapter-base"
 import { clusterApiUrl, Connection, Keypair, PublicKey, Transaction, SystemProgram, LAMPORTS_PER_SOL } from "@solana/web3.js"
 // import base58 from 'bs58';
 import BigNumber from "bignumber.js";
-
-// Import products.json from api folder
 import products from "./products.json"
 
-// Store's address, SOL tokens will be sent to them
 const sellerAddress = new PublicKey('B1aLAAe4vW8nSQCetXnYqJfRxzTjnbooczwkUJAr7yMS')
-const sellerPrivateKey = '5v8eEjTZjtED5B41QWkxeefaMsuXj2RL3h9q1TiS3vAWQALboyXVRxLN4cyd8jtnP8brdN8UFNoUs5ySpRW32yhA';
+const sellerPrivateKey = process.env.SELLER_PK;
 
 const usdcAddress = new PublicKey('Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr')
 
-// API endpoint to send back a tx that transfers 0.1 SOL to the store
 // Gimme ur money hehe
 export default async function createSolTransaction (req, res) {
   // console.log("Request received", req.body);
@@ -30,7 +26,6 @@ export default async function createSolTransaction (req, res) {
     // Fetch item price from products.json using itemID
     const itemPrice = products.find(item => item.id === itemID).price;
 
-    // If itemPrice is not found, return 404
     if (!itemPrice){
       res.status(404).json({
         message: "Item not found. please check item ID"

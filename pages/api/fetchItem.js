@@ -2,7 +2,8 @@
 import products from "./products.json"
 
 export default function fetchItem(req, res) {
-  const { itemID  } = req.body;
+  const { itemID } = req.body;
+  
   if (!itemID) {
     res.status(400).send('Missing itemID');
   }
